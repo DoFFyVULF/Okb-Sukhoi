@@ -1,0 +1,889 @@
+<!DOCTYPE html>
+<!-- ОКБ СУХОГО · АПДЕЙТ-2: дедуп 3D-нод, full-bleed hero без жёсткого разделения (pan камеры), контент «РОЖДЁННЫЕ В НЕБЕ» после Пролёта -->
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>ОКБ Сухого — Су-27 · Су-35С · Су-57 | Легендарное конструкторское бюро</title>
+<meta name="description" content="ОКБ Сухого: история с 1939 года, модельный ряд Су-27…Су-75, вооружение Р-77М и Х-69. Неофициальный фан-сайт.">
+<meta property="og:title" content="ОКБ Сухого — небо начинается здесь">
+<meta property="og:description" content="Фотореалистичный 3D Су-57, timeline, модельный ряд, вооружение, scroll-пролёт.">
+<meta property="og:type" content="website">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Cpath d='M16 2 28 26 16 20 4 26Z' fill='%234F8CFF'/%3E%3C/svg%3E">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fontsource/russo-one@latest/cyrillic-400.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fontsource/russo-one@latest/latin-400.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fontsource/manrope@latest/cyrillic-400.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fontsource/manrope@latest/cyrillic-600.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fontsource/manrope@latest/cyrillic-800.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fontsource/jetbrains-mono@latest/cyrillic-400.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fontsource/jetbrains-mono@latest/cyrillic-700.css">
+<style>
+:root{--ink:#05070D;--deep:#0A0F1A;--panel:#101826;--steel:#4F8CFF;--ice:#7DD3FC;--flame:#FF7A1A;--line:rgba(255,255,255,.06)}
+*{margin:0;padding:0;box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{background:var(--ink);color:#E6EDF7;font-family:Manrope,system-ui,sans-serif;overflow-x:hidden;-webkit-font-smoothing:antialiased}
+::selection{background:rgba(79,140,255,.35)}
+img{display:block;max-width:100%}
+a{color:inherit;text-decoration:none}
+button{font:inherit;background:none;border:0;color:inherit;cursor:pointer}
+h1,h2,h3,.disp{font-family:'Russo One',system-ui,sans-serif;font-weight:400}
+.mono{font-family:'JetBrains Mono',ui-monospace,monospace}
+.wrap{max-width:1200px;margin:0 auto;padding:0 20px}
+@media(min-width:768px){.wrap{padding:0 32px}}
+body::after{content:"";position:fixed;inset:0;z-index:80;pointer-events:none;opacity:.05;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2'/%3E%3C/filter%3E%3Crect width='160' height='160' filter='url(%23n)' opacity='0.6'/%3E%3C/svg%3E")}
+.bp{background-image:linear-gradient(rgba(79,140,255,.055) 1px,transparent 1px),linear-gradient(90deg,rgba(79,140,255,.055) 1px,transparent 1px),linear-gradient(rgba(79,140,255,.09) 1px,transparent 1px),linear-gradient(90deg,rgba(79,140,255,.09) 1px,transparent 1px);background-size:48px 48px,48px 48px,240px 240px,240px 240px}
+.clip{clip-path:polygon(0 0,calc(100% - 16px) 0,100% 16px,100% 100%,16px 100%,0 calc(100% - 16px))}
+.clip-btn{clip-path:polygon(0 0,calc(100% - 12px) 0,100% 12px,100% 100%,12px 100%,0 calc(100% - 12px))}
+.hc{position:relative}
+.hc>i{position:absolute;width:14px;height:14px;border:1px solid rgba(125,211,252,.55);pointer-events:none;z-index:2}
+.hc>i:nth-child(1){top:0;left:0;border-right:0;border-bottom:0}
+.hc>i:nth-child(2){top:0;right:0;border-left:0;border-bottom:0}
+.hc>i:nth-child(3){bottom:0;left:0;border-right:0;border-top:0}
+.hc>i:nth-child(4){bottom:0;right:0;border-left:0;border-top:0}
+#loader{position:fixed;inset:0;z-index:100;background:var(--ink);display:flex;flex-direction:column;gap:24px;align-items:center;justify-content:center;transition:opacity .6s,visibility .6s;animation:ldHide .5s ease 3.2s forwards}
+#loader.done{opacity:0;visibility:hidden}
+@keyframes ldHide{to{opacity:0;visibility:hidden}}
+#ld-bar{height:100%;width:0;background:linear-gradient(90deg,var(--steel),var(--ice));animation:ldGrow 2.4s ease forwards}
+@keyframes ldGrow{to{width:100%}}
+.js [data-rv]{opacity:0;transform:translateY(26px);transition:opacity .8s cubic-bezier(.2,.7,.2,1),transform .8s cubic-bezier(.2,.7,.2,1)}
+.js [data-rv].rv-in{opacity:1;transform:none}
+.lm{display:block;overflow:hidden}
+.lm>span{display:block;transition:transform 1s cubic-bezier(.16,.84,.28,1)}
+body.booting .lm>span{transform:translateY(112%)}
+body.ready .lm>span{transform:translateY(0)}
+body.ready .lm.d2>span{transition-delay:.14s}
+body.ready .lm.d3>span{transition-delay:.28s}
+#topbar{position:fixed;top:0;left:0;right:0;z-index:50;border-bottom:1px solid var(--line);background:rgba(5,7,13,.72);backdrop-filter:blur(10px)}
+#topbar .in{height:56px;display:flex;align-items:center;justify-content:space-between;gap:16px}
+#topbar nav{display:none;gap:24px}
+@media(min-width:768px){#topbar nav{display:flex}}
+#topbar nav a{font-family:'JetBrains Mono',monospace;font-size:11px;letter-spacing:.2em;color:rgba(255,255,255,.6);transition:color .2s}
+#topbar nav a:hover{color:var(--ice)}
+#hero{position:relative;height:100vh;min-height:620px;overflow:hidden}
+#stage{position:absolute;inset:0;z-index:1;touch-action:pan-y;cursor:grab}
+#stage:active{cursor:grabbing}
+#shield{position:absolute;inset:0;z-index:3}
+.vig{position:absolute;inset:0;z-index:2;pointer-events:none;background:linear-gradient(90deg,rgba(5,7,13,.88) 0%,rgba(5,7,13,.5) 32%,transparent 58%),radial-gradient(120% 90% at 62% 45%,transparent 55%,rgba(5,7,13,.45) 100%),linear-gradient(to top,var(--ink) 0,transparent 20%,transparent 84%,rgba(5,7,13,.5))}
+.hwrap{position:relative;z-index:10;height:100%;display:flex;flex-direction:column;justify-content:center;pointer-events:none}
+.hwrap a,.hwrap button{pointer-events:auto}
+.hinner{max-width:min(600px,42vw)}
+.hero-title{font-size:clamp(2.9rem,8.5vw,7rem);line-height:.95;text-shadow:0 4px 40px rgba(5,7,13,.9)}
+.hero-title .grad{color:transparent;background:linear-gradient(90deg,var(--steel),var(--ice),var(--steel));-webkit-background-clip:text;background-clip:text}
+.btn{display:inline-block;padding:13px 28px;font-family:'Russo One';font-size:14px;letter-spacing:.12em}
+.btn-steel{background:var(--steel);color:var(--ink);transition:background .2s}
+.btn-steel:hover{background:var(--ice)}
+.btn-flame{border:1px solid rgba(255,122,26,.6);color:var(--flame);transition:background .2s}
+.btn-flame:hover{background:rgba(255,122,26,.12)}
+.btn-ice{border:1px solid rgba(125,211,252,.5);color:var(--ice);transition:background .2s}
+.btn-ice:hover{background:rgba(125,211,252,.12)}
+.tel{display:none;position:absolute;z-index:11;font-family:'JetBrains Mono',monospace;font-size:10px;line-height:20px;pointer-events:none;text-shadow:0 2px 12px rgba(5,7,13,.9)}
+.tel.r{right:32px;top:76px;color:rgba(125,211,252,.55);text-align:right}
+.tel.l{left:40px;bottom:96px;color:rgba(255,255,255,.35)}
+@media(min-width:1024px){.tel{display:block}}
+.logo-img{height:26px;width:auto;display:block}
+.logo-white{filter:brightness(0) invert(1)}
+.logo-foot{height:22px;width:auto;display:block}
+.h3tag{position:absolute;right:3vmin;bottom:3vmin;z-index:11;font-family:'JetBrains Mono',monospace;font-size:9px;letter-spacing:.25em;color:rgba(255,255,255,.35);pointer-events:none}
+/* hero FX: scanline · trajectory · corner draw-in · title glow */
+.hero-fx{position:absolute;inset:0;z-index:3;pointer-events:none;overflow:hidden}
+.hero-scan{position:absolute;left:0;right:0;top:-2px;height:2px;background:linear-gradient(90deg,transparent,rgba(125,211,252,0) 8%,rgba(125,211,252,.85) 50%,rgba(125,211,252,0) 92%,transparent);box-shadow:0 0 18px 4px rgba(125,211,252,.4);animation:heroScan 7s linear infinite}
+@keyframes heroScan{0%{transform:translateY(0)}100%{transform:translateY(100vh)}}
+.hero-path{position:absolute;left:6%;top:8%;width:42%;height:42%;opacity:.45}
+.hero-path path{fill:none;stroke:rgba(255,122,26,.7);stroke-width:1.4;stroke-dasharray:6 7;animation:heroDash 3.6s linear infinite;filter:drop-shadow(0 0 6px rgba(255,122,26,.5))}
+@keyframes heroDash{to{stroke-dashoffset:-52}}
+#hero .hc>i{transform:scale(0);opacity:0;animation:brk .7s cubic-bezier(.2,.8,.2,1) forwards}
+#hero .hc>i:nth-child(1){animation-delay:.15s}
+#hero .hc>i:nth-child(2){animation-delay:.3s}
+#hero .hc>i:nth-child(3){animation-delay:.45s}
+#hero .hc>i:nth-child(4){animation-delay:.6s}
+@keyframes brk{to{transform:scale(1);opacity:1}}
+.hero-title .grad{animation:titleGlow 4.5s ease-in-out 1.4s infinite}
+@keyframes titleGlow{0%,100%{filter:none}50%{filter:drop-shadow(0 0 22px rgba(125,211,252,.55))}}
+@keyframes chev{0%{transform:translateY(0);opacity:1}100%{transform:translateY(10px);opacity:0}}
+.chev{animation:chev 1.4s ease-in-out infinite}
+@keyframes blink{0%,60%{opacity:1}61%,100%{opacity:.15}}
+.blink{animation:blink 1.6s steps(1) infinite}
+.ticker{border-top:1px solid rgba(79,140,255,.2);border-bottom:1px solid rgba(79,140,255,.2);background:rgba(10,15,26,.8);padding:12px 0;overflow:hidden}
+.ticker-track{display:flex;width:max-content;animation:tick 30s linear infinite}
+.ticker:hover .ticker-track{animation-play-state:paused}
+@keyframes tick{to{transform:translateX(-50%)}}
+.ticker-track span{font-family:'Russo One';font-size:15px;letter-spacing:.25em;color:rgba(255,255,255,.7);padding:0 24px;white-space:nowrap}
+.ticker-track b{color:var(--flame)}
+section{scroll-margin-top:80px}
+.sec{padding:96px 0}
+@media(min-width:768px){.sec{padding:128px 0}}
+.overline{font-family:'JetBrains Mono',monospace;font-size:11px;letter-spacing:.4em;color:var(--flame);margin-bottom:12px}
+.h2{font-size:clamp(1.8rem,4.5vw,3rem);margin-bottom:56px}
+.h2 em{font-style:normal;color:var(--steel)}
+.tl{list-style:none;position:relative;margin-left:12px;border-left:1px solid rgba(79,140,255,.25)}
+.tl li{position:relative;padding-left:32px;margin-bottom:56px}
+@media(min-width:768px){.tl li{padding-left:48px}}
+.tl li::before{content:"";position:absolute;left:-7px;top:4px;width:13px;height:13px;transform:rotate(45deg);background:var(--ink);border:1px solid var(--steel)}
+.tl li.hot::before{border-color:var(--flame)}
+.tl .yr{font-family:'JetBrains Mono',monospace;font-size:14px;color:var(--steel);margin-bottom:8px}
+.tl li.hot .yr{color:var(--flame)}
+.tl .card{background:rgba(16,24,38,.8);border:1px solid var(--line);padding:20px}
+.tl .card h3{font-size:18px;margin-bottom:6px}
+.tl .card p{color:rgba(255,255,255,.6);font-size:14px;line-height:1.65}
+.tl .card b{color:var(--ice);font-weight:600}
+.fact{margin-top:80px;background:var(--deep);border:1px solid rgba(79,140,255,.25);padding:32px;display:flex;flex-direction:column;gap:28px;align-items:center}
+@media(min-width:768px){.fact{flex-direction:row;padding:48px}}
+.fact .num{font-family:'Russo One';font-size:clamp(3.5rem,8vw,6rem);color:transparent;background:linear-gradient(180deg,var(--ice),var(--steel));-webkit-background-clip:text;background-clip:text}
+.fact p{color:rgba(255,255,255,.6);max-width:420px}
+.fact img{width:160px;opacity:.75;mix-blend-mode:screen}
+@media(min-width:768px){.fact img{margin-left:auto;width:220px}}
+#fleet{background:rgba(10,15,26,.6);border-top:1px solid var(--line);border-bottom:1px solid var(--line)}
+.fgrid{display:grid;gap:24px;grid-template-columns:1fr}
+@media(min-width:640px){.fgrid{grid-template-columns:1fr 1fr}}
+@media(min-width:1280px){.fgrid{grid-template-columns:1fr 1fr 1fr}}
+.fcard{background:rgba(16,24,38,.8);border:1px solid var(--line);padding:24px;transition:transform .5s cubic-bezier(.2,.7,.2,1),border-color .3s,box-shadow .3s}
+.fcard:hover{border-color:rgba(79,140,255,.5);box-shadow:0 0 0 1px rgba(79,140,255,.25),0 24px 60px -24px rgba(79,140,255,.35)}
+.fcard .top{display:flex;align-items:flex-start;justify-content:space-between;gap:12px;margin-bottom:16px}
+.fcard h3{font-size:20px}
+.fcard .gen{font-family:'JetBrains Mono',monospace;font-size:9px;letter-spacing:.18em;color:var(--flame);border:1px solid rgba(255,122,26,.4);padding:4px 8px;white-space:nowrap}
+.fcard .imgbox{position:relative;height:150px;display:flex;align-items:center;justify-content:center;margin-bottom:16px}
+.fcard .glow{position:absolute;inset:0;opacity:.35;transition:opacity .4s;background:radial-gradient(60% 60% at 50% 55%,rgba(79,140,255,.28),transparent 70%)}
+.fcard:hover .glow{opacity:.85}
+.fcard .imgbox img{position:relative;max-height:100%;width:100%;object-fit:contain;filter:drop-shadow(0 14px 28px rgba(0,0,0,.5))}
+.fcard .role{font-family:'JetBrains Mono',monospace;font-size:10px;letter-spacing:.2em;color:rgba(125,211,252,.7);margin-bottom:8px}
+.fcard .desc{color:rgba(255,255,255,.55);font-size:14px;line-height:1.6;margin-bottom:20px}
+.fcard .stats{display:grid;grid-template-columns:1fr 1fr 1fr;gap:8px;border-top:1px solid var(--line);padding-top:16px}
+.fcard .stats .v{font-family:'Russo One';font-size:18px;color:var(--ice)}
+.fcard .stats .l{font-family:'JetBrains Mono',monospace;font-size:9px;letter-spacing:.12em;color:rgba(255,255,255,.4);margin-top:2px}
+#flyby{position:relative;height:280vh}
+.fb-pin{position:sticky;top:0;height:100vh;overflow:hidden;background:linear-gradient(180deg,var(--ink),var(--deep) 45%,var(--ink))}
+.craft{position:absolute;left:0;will-change:transform}
+.craft img{width:100%;filter:drop-shadow(0 0 22px rgba(79,140,255,.3))}
+.craft .trail{position:absolute;top:50%;right:94%;height:3px;background:linear-gradient(to left,rgba(255,122,26,.6),rgba(79,140,255,.25),transparent)}
+#fb-hud{position:absolute;top:32px;right:32px;z-index:20;font-family:'JetBrains Mono',monospace;font-size:11px;color:rgba(255,255,255,.5);text-align:right}
+#fb-hud .o{color:var(--flame)}#fb-hud .b{color:var(--ice)}
+#fb-prog{height:100%;width:0;background:linear-gradient(90deg,var(--steel),var(--flame))}
+#fb-outro{position:absolute;inset:0;z-index:30;display:flex;align-items:center;justify-content:center;padding:20px;opacity:0;transform:translateY(30px);transition:opacity .7s ease,transform .7s cubic-bezier(.2,.7,.2,1);pointer-events:none}
+#fb-outro.show{opacity:1;transform:none}
+.outro-in{max-width:960px;width:100%;background-color:rgba(5,7,13,.8);backdrop-filter:blur(6px);border:1px solid rgba(79,140,255,.25);padding:34px;max-height:92vh;overflow-y:auto}
+.o-title{font-size:clamp(1.9rem,4.5vw,3.2rem);margin:8px 0 14px}
+.o-lead{color:rgba(255,255,255,.66);font-size:15px;line-height:1.7;max-width:780px}
+.o-tiles{display:grid;grid-template-columns:repeat(4,1fr);margin:26px 0 4px;border-top:1px solid var(--line);border-bottom:1px solid var(--line)}
+.o-tile{padding:18px 16px;border-left:1px solid var(--line)}
+.o-tile:first-child{border-left:0}
+.o-num{font-family:'Russo One';font-size:clamp(1.5rem,2.8vw,2.3rem);color:var(--flame);white-space:nowrap}
+.o-num i{font-family:'JetBrains Mono',monospace;font-style:normal;font-size:11px;color:rgba(255,255,255,.5);margin-left:6px}
+.o-lab{font-family:'JetBrains Mono',monospace;font-size:9px;letter-spacing:.14em;color:rgba(255,255,255,.45);margin-top:6px}
+.o-super{margin-top:24px;padding-top:22px;border-top:1px solid var(--line)}
+.o-super h3{font-size:18px;color:var(--ice);margin-bottom:8px;letter-spacing:.06em}
+.o-super p{color:rgba(255,255,255,.6);font-size:14px;line-height:1.7}
+.o-line{margin-top:22px;font-size:10px;letter-spacing:.22em;color:rgba(125,211,252,.75)}
+.tabs{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:40px}
+.wp-tab{font-family:'JetBrains Mono',monospace;font-size:11px;letter-spacing:.15em;padding:9px 16px;border:1px solid rgba(79,140,255,.4);color:rgba(255,255,255,.7);transition:all .2s}
+.wp-tab:hover{color:var(--ice)}
+.wp-tab[aria-selected="true"]{background:var(--steel);border-color:var(--steel);color:var(--ink)}
+.wgrid{display:grid;gap:24px;grid-template-columns:1fr}
+@media(min-width:768px){.wgrid{grid-template-columns:1fr 1fr}}
+.wcard{background:rgba(16,24,38,.8);border:1px solid var(--line);padding:24px}
+@keyframes cardIn{from{opacity:0;transform:translateY(18px)}to{opacity:1;transform:none}}
+.card-in{animation:cardIn .55s cubic-bezier(.2,.7,.2,1) both}
+.wcard .head{display:flex;align-items:flex-start;gap:16px}
+.wcard .head .ic{color:var(--steel);flex-shrink:0;padding-top:4px}
+.wcard h3{font-size:19px}
+.wcard .sub{font-family:'JetBrains Mono',monospace;font-size:10px;letter-spacing:.2em;color:rgba(255,122,26,.9);margin-top:4px}
+.wcard .desc{color:rgba(255,255,255,.55);font-size:14px;line-height:1.6;margin:16px 0 20px}
+.wcard .stats{display:grid;grid-template-columns:1fr 1fr 1fr;gap:8px;margin-bottom:20px}
+.wcard .stats .v{font-family:'Russo One';font-size:16px;color:var(--ice)}
+.wcard .stats .l{font-family:'JetBrains Mono',monospace;font-size:9px;letter-spacing:.1em;color:rgba(255,255,255,.4);margin-top:2px}
+.wbar-row{display:flex;align-items:center;gap:12px}
+.wbar{flex:1;height:4px;background:rgba(79,140,255,.14);position:relative;overflow:hidden}
+.wbar i{position:absolute;left:0;top:0;bottom:0;width:0;background:linear-gradient(90deg,var(--steel),var(--ice));transition:width 1.2s cubic-bezier(.2,.7,.2,1)}
+.wbar.flame i{background:linear-gradient(90deg,var(--flame),#ffc38a)}
+#gallery{background:rgba(10,15,26,.6);border-top:1px solid var(--line)}
+.ggrid{display:grid;gap:24px;grid-template-columns:1fr}
+@media(min-width:640px){.ggrid{grid-template-columns:1fr 1fr}}
+.gfig{position:relative;overflow:hidden;border:1px solid var(--line)}
+.gfig img{width:100%;height:300px;object-fit:cover;transition:transform .8s ease;animation:kb 18s ease-in-out infinite alternate}
+.gfig:nth-child(2n) img{animation-direction:alternate-reverse}
+@media(min-width:768px){.gfig img{height:380px}}
+.gfig:hover img{transform:scale(1.1)}
+@keyframes kb{from{transform:scale(1) translate(0,0)}to{transform:scale(1.1) translate(2%,-2%)}}
+.gfig figcaption{position:absolute;left:0;right:0;bottom:0;padding:16px;font-family:'JetBrains Mono',monospace;font-size:10px;letter-spacing:.25em;color:rgba(125,211,252,.8);background:linear-gradient(to top,rgba(5,7,13,.92),transparent)}
+footer{padding:80px 0 40px;overflow:hidden}
+.ghost{font-family:'Russo One';font-size:clamp(4rem,14vw,10rem);line-height:1;color:transparent;-webkit-text-stroke:1px rgba(79,140,255,.28);user-select:none;pointer-events:none}
+.fgrid3{margin-top:40px;border-top:1px solid var(--line);padding-top:32px;display:grid;gap:32px;grid-template-columns:1fr}
+@media(min-width:768px){.fgrid3{grid-template-columns:1fr 1fr 1fr}}
+.fgrid3 p{color:rgba(255,255,255,.4);font-size:12px;line-height:1.7;max-width:320px}
+.fgrid3 .col{font-family:'JetBrains Mono',monospace;font-size:11px;letter-spacing:.15em;color:rgba(255,255,255,.5)}
+.fgrid3 .col a{display:block;margin-bottom:8px;transition:color .2s}
+.fgrid3 .col a:hover{color:var(--ice)}
+.fgrid3 .head{color:rgba(125,211,252,.7);margin-bottom:12px}
+img[data-matte]{transition:opacity .7s ease}
+body.matting img[data-matte]:not(.matted){opacity:0}
+@media(max-width:860px){
+ .hwrap{justify-content:flex-start;padding-top:12vh}
+ .hinner{max-width:100%}
+ .tel{display:none !important}
+ .h3tag{right:20px;bottom:16px}
+}
+@media(max-width:640px){
+ .sec{padding:72px 0}
+ .h2{margin-bottom:40px}
+ .tl li{padding-left:24px;margin-bottom:40px}
+ .gfig img{height:230px}
+ .wp-tab{font-size:10px;padding:8px 12px}
+ .btn{padding:11px 20px;font-size:13px}
+ .ticker-track span{font-size:13px;padding:0 16px}
+ #fb-hud{top:20px;right:20px;font-size:10px}
+ .fact{padding:24px}
+ .o-tiles{grid-template-columns:1fr 1fr}
+ .o-tile:nth-child(odd){border-left:0}
+ .o-tile:nth-child(n+3){border-top:1px solid var(--line)}
+ .outro-in{padding:22px}
+}
+@media (prefers-reduced-motion: reduce){
+ html{scroll-behavior:auto}
+ *,*::before,*::after{animation-duration:.001s !important;animation-iteration-count:1 !important;transition-duration:.001s !important}
+ .js [data-rv]{opacity:1;transform:none}
+ body.booting .lm>span{transform:none}
+}
+</style>
+</head>
+<body>
+<script>document.body.classList.add('booting','js','matting');</script>
+
+<div id="loader">
+  <div class="hc" style="position:absolute;inset:24px"><i></i><i></i><i></i><i></i></div>
+  <div class="mono" style="font-size:11px;letter-spacing:.35em;color:rgba(125,211,252,.8)">ЗАГРУЗКА 3D-МОДЕЛИ // СУ-57 · PBR</div>
+  <div style="width:256px;height:3px;background:rgba(79,140,255,.15)"><div id="ld-bar"></div></div>
+  <div id="ld-pct" class="mono" style="color:var(--flame);font-size:14px">0%</div>
+</div>
+
+<header id="topbar">
+  <div class="wrap in">
+    <a href="#hero" style="display:flex;align-items:center;gap:12px">
+      <img src="public/logo-sukhoi.svg" alt="ОКБ Сухого" class="logo-img logo-white">
+      <span class="disp" style="font-size:14px;letter-spacing:.22em">ОКБ СУХОГО</span>
+    </a>
+    <nav>
+      <a href="#history">ИСТОРИЯ</a><a href="#fleet">САМОЛЁТЫ</a><a href="#flyby">ПРОЛЁТ</a><a href="#weapons">ВООРУЖЕНИЕ</a><a href="#gallery">ГАЛЕРЕЯ</a>
+    </nav>
+  </div>
+</header>
+
+<main>
+<section id="hero">
+  <div class="bp" style="position:absolute;inset:0"></div>
+  <div id="stage" aria-label="Интерактивная 3D-модель Су-57"></div>
+  <div class="vig"></div>
+  <div class="hero-fx" aria-hidden="true">
+    <div class="hero-scan"></div>
+    <svg class="hero-path" viewBox="0 0 200 160" preserveAspectRatio="none"><path d="M-12 132 C 54 44 140 36 214 104"/></svg>
+  </div>
+  <div class="hc" style="position:absolute;inset:16px;z-index:12;pointer-events:none"><i></i><i></i><i></i><i></i></div>
+  <div class="tel r">HUD:// TELEMETRY<br>ALT <span id="hAlt">20 000</span> M<br>SPD <span id="hSpd">2 600</span> KM/H<br>MACH <span id="hMach">2.45</span><br>MODE: ФОРСАЖ <span style="color:var(--flame)">▲</span></div>
+  <div class="tel l">ЛТХ:// ПАК ФА<br>ЭПР ≈ 0.1–1 М²<br>УВХ: АЛ-41Ф1</div>
+  <div class="h3tag">3D:// SKETCHFAB PBR · СКРОЛЛ ВРАЩАЕТ МОДЕЛЬ</div>
+
+  <div class="wrap hwrap">
+    <div class="hinner">
+      <p class="lm d1 mono" style="font-size:11px;letter-spacing:.4em;color:rgba(125,211,252,.85);margin-bottom:20px"><span>// ОПЫТНО-КОНСТРУКТОРСКОЕ БЮРО · ОСН. 1939</span></p>
+      <h1 class="hero-title">
+        <span class="lm d2"><span>ОКБ</span></span>
+        <span class="lm d3"><span class="grad">СУХОГО</span></span>
+      </h1>
+      <p class="lm d3" style="margin-top:24px;color:rgba(255,255,255,.72);font-size:15px;text-shadow:0 2px 24px rgba(5,7,13,.9)"><span>Авиационные системы поколения «4++» и «5»: от Су-2 до Су-57 и Су-75. Чертёжная точность. Форсажная динамика.</span></p>
+      <div class="lm d3" style="margin-top:32px;display:flex;flex-wrap:wrap;gap:12px">
+        <span style="display:flex;gap:12px;flex-wrap:wrap">
+          <a class="btn btn-steel clip-btn" href="#fleet">САМОЛЁТЫ</a>
+          <a class="btn btn-flame clip-btn" href="#weapons">ВООРУЖЕНИЕ</a>
+          <button id="inBtn" class="btn btn-ice clip-btn" type="button">▶ СВОБОДНЫЙ ОСМОТР</button>
+        </span>
+      </div>
+      <div id="ihint" class="lm d3 mono" style="margin-top:14px;font-size:10px;letter-spacing:.12em;color:rgba(255,255,255,.4)"><span>прокрутка страницы вращает модель · drag — доворот</span></div>
+    </div>
+  </div>
+
+  <div style="position:absolute;bottom:24px;left:50%;transform:translateX(-50%);z-index:12;display:flex;flex-direction:column;align-items:center;gap:4px;color:rgba(255,255,255,.45)">
+    <span class="mono" style="font-size:10px;letter-spacing:.3em">SCROLL</span>
+    <svg class="chev" width="16" height="10" viewBox="0 0 16 10" fill="none" stroke="currentColor"><path d="M1 1l7 7 7-7"/></svg>
+  </div>
+</section>
+
+<div class="ticker" aria-hidden="true">
+  <div class="ticker-track">
+    <span>СУ-27 <b>•</b></span><span>СУ-30СМ <b>•</b></span><span>СУ-34 <b>•</b></span><span>СУ-35С <b>•</b></span><span>СУ-57 <b>•</b></span><span>СУ-75 <b>•</b></span>
+    <span>СУ-27 <b>•</b></span><span>СУ-30СМ <b>•</b></span><span>СУ-34 <b>•</b></span><span>СУ-35С <b>•</b></span><span>СУ-57 <b>•</b></span><span>СУ-75 <b>•</b></span>
+  </div>
+</div>
+
+<section id="history" class="sec">
+  <div class="wrap">
+    <p class="overline" data-rv>01 // ИСТОРИЯ</p>
+    <h2 class="h2" data-rv>ВОСЕМЬ ДЕСЯТИЛЕТИЙ<br><em>НА ПЕРЕДОВОМ РУБЕЖЕ</em></h2>
+    <ol class="tl">
+      <li class="hot" data-rv><div class="yr">29.07.1939</div><div class="card clip"><h3>Рождение бюро</h3><p>Постановление СНК СССР о создании опытного конструкторского бюро. Главным конструктором назначен <b>Павел Осипович Сухой</b>.</p></div></li>
+      <li data-rv><div class="yr">1940</div><div class="card clip"><h3>Завод № 51 · Су-2 в серии</h3><p>Бюро получает производственную базу; ближний бомбардировщик <b>Су-2</b> запускается в серию — первая боевая машина КБ.</p></div></li>
+      <li data-rv><div class="yr">1950–1970-е</div><div class="card clip"><h3>Эпоха сверхзвука</h3><p>Перехватчики ПВО <b>Су-9, Су-11, Су-15</b>; ударные машины фронтовой авиации <b>Су-17, Су-24, Су-25</b>.</p></div></li>
+      <li class="hot" data-rv><div class="yr">1977</div><div class="card clip"><h3>Первый полёт Су-27</h3><p>Начало легендарного семейства: интегральная компоновка, ЭДСУ, высочайшая манёвренность.</p></div></li>
+      <li data-rv><div class="yr">1990–2000-е</div><div class="card clip"><h3>Су-30 · Су-33 · Су-34</h3><p>Многоцелевые и палубные машины, фронтовой бомбардировщик с броневой кабиной — семейство закрывает все ниши боевой авиации.</p></div></li>
+      <li class="hot" data-rv><div class="yr">2010 · 2021</div><div class="card clip"><h3>Су-57 (ПАК ФА) · Су-75 Checkmate</h3><p>Первый полёт истребителя пятого поколения Су-57; в 2021-м представлен лёгкий тактический <b>Су-75 Checkmate</b>.</p></div></li>
+    </ol>
+    <div class="fact hc clip" data-rv>
+      <i></i><i></i><i></i><i></i>
+      <div class="num"><span data-cnt="100" data-pre="≈">≈ 100</span></div>
+      <p>типов самолётов создано в ОКБ за годы его работы — от экспериментальных до серийных легендарных машин.</p>
+      <img src="https://image.qwenlm.ai/public_source/e2a3e154-caea-43ac-a9a6-62f6bbc394c7/14df9c33d-6ccb-44ab-b9e6-31e828e4ab9a.png" alt="Чертёж Су-57, вид сверху" loading="lazy">
+    </div>
+  </div>
+</section>
+
+<section id="fleet" class="sec bp">
+  <div class="wrap">
+    <p class="overline" data-rv>02 // МОДЕЛЬНЫЙ РЯД</p>
+    <h2 class="h2" data-rv>СЕМЕЙСТВО <em>«СУ»</em></h2>
+    <div id="fleet-grid" class="fgrid"></div>
+  </div>
+</section>
+
+<section id="flyby">
+  <div class="fb-pin">
+    <div id="fb-stars" class="bp" style="position:absolute;inset:0;opacity:.6"></div>
+    <div class="hc" style="position:absolute;inset:16px;pointer-events:none"><i></i><i></i><i></i><i></i></div>
+    <div class="mono" style="position:absolute;top:32px;left:32px;z-index:20;font-size:11px;letter-spacing:.35em;color:rgba(125,211,252,.7)">03 // ПРОЛЁТ — СКРОЛЛ</div>
+    <div id="fb-hud">V: <span id="fb-spd" class="o">0900</span> KM/H<br>H: <span id="fb-alt" class="b">00200</span> M · КРЕН <span id="fb-bank" class="b">3.0°</span></div>
+    <div id="craftB" class="craft" style="top:12%;width:min(18vw,260px);opacity:.65;transform:translateX(-30vw)">
+      <div class="trail" style="width:20vw"></div>
+      <img data-matte src="https://image.qwenlm.ai/public_source/e2a3e154-caea-43ac-a9a6-62f6bbc394c7/12a8eb010-75a2-42b2-be42-9d916b9bb759.png" alt="Су-35С в пролёте">
+    </div>
+    <div id="craftA" class="craft" style="top:30%;width:min(34vw,540px);transform:translateX(-45vw)">
+      <div class="trail" style="width:30vw;background:linear-gradient(to left,rgba(255,122,26,.7),rgba(255,122,26,.25),transparent)"></div>
+      <img data-matte src="https://image.qwenlm.ai/public_source/e2a3e154-caea-43ac-a9a6-62f6bbc394c7/128563a5a-3507-41e2-b86e-e73f5f8e96cc.png" alt="Су-57 в пролёте" style="transform:scaleX(-1)">
+    </div>
+    <div id="craftC" class="craft" style="top:52%;width:min(46vw,700px);opacity:.9;transform:translateX(-70vw)">
+      <div class="trail" style="width:40vw"></div>
+      <img data-matte src="https://image.qwenlm.ai/public_source/e2a3e154-caea-43ac-a9a6-62f6bbc394c7/17cbef53a-76cb-468d-8016-46df03081dd8.png" alt="Су-34 в пролёте" style="transform:scaleX(-1)">
+    </div>
+
+    <div id="fb-outro">
+      <div class="outro-in bp hc">
+        <i></i><i></i><i></i><i></i>
+        <p class="mono" style="font-size:11px;letter-spacing:.4em;color:var(--flame)">03.1 // ФИНАЛ ПРОЛЁТА</p>
+        <h2 class="o-title">РОЖДЁННЫЕ В НЕБЕ</h2>
+        <p class="o-lead">Самолёты ОКБ Сухого не просто летают — они раздвигают границы возможного. Управление вектором тяги, сверхманёвренность и крейсерский сверхзвук без форсажа — фирменный почерк школы Сухого.</p>
+        <div class="o-tiles">
+          <div class="o-tile"><div class="o-num"><span data-ocnt="2600">0</span><i>КМ/Ч</i></div><div class="o-lab">МАКС. СКОРОСТЬ</div></div>
+          <div class="o-tile"><div class="o-num"><span data-ocnt="2100">0</span><i>КМ/Ч</i></div><div class="o-lab">СВЕРХЗВУК БЕЗ ФОРСАЖА · СУ-57</div></div>
+          <div class="o-tile"><div class="o-num"><span data-ocnt="20000">0</span><i>М</i></div><div class="o-lab">ПРАКТИЧЕСКИЙ ПОТОЛОК</div></div>
+          <div class="o-tile"><div class="o-num"><span data-ocnt="9">0</span><i>G</i></div><div class="o-lab">МАКС. ПЕРЕГРУЗКА</div></div>
+        </div>
+        <div class="o-super">
+          <h3>СВЕРХМАНЁВРЕННОСТЬ</h3>
+          <p>«Кобра Пугачёва», «кульбит», «блин» — фигуры высшего пилотажа за пределами сваливания, впервые выполненные на самолётах марки «Су». Управляемость там, где другие теряют управление, — главный принцип бюро.</p>
+        </div>
+        <div class="o-line mono">SU-27 → SU-35 → SU-57: КАЖДОЕ ПОКОЛЕНИЕ — ЭТАЛОН МАНЁВРЕННОСТИ</div>
+      </div>
+    </div>
+
+    <div style="position:absolute;bottom:32px;left:0;right:0;z-index:20;display:flex;justify-content:center">
+      <div style="width:288px;height:3px;background:rgba(255,255,255,.1)"><div id="fb-prog"></div></div>
+    </div>
+  </div>
+</section>
+
+<section id="weapons" class="sec">
+  <div class="wrap">
+    <p class="overline" data-rv>04 // ВООРУЖЕНИЕ</p>
+    <h2 class="h2" data-rv>КОМПЛЕКС <em>ПРИМЕНЕНИЯ</em></h2>
+    <div class="tabs" role="tablist" aria-label="Категории вооружения" data-rv>
+      <button class="wp-tab clip-btn" role="tab" aria-selected="true" data-tab="aa">ВОЗДУХ–ВОЗДУХ</button>
+      <button class="wp-tab clip-btn" role="tab" aria-selected="false" data-tab="ag">ВОЗДУХ–ПОВЕРХНОСТЬ</button>
+      <button class="wp-tab clip-btn" role="tab" aria-selected="false" data-tab="bomb">КОРРЕКТИРУЕМЫЕ БОМБЫ</button>
+      <button class="wp-tab clip-btn" role="tab" aria-selected="false" data-tab="gun">ПУШЕЧНОЕ</button>
+    </div>
+    <div id="wp-grid" class="wgrid"></div>
+  </div>
+</section>
+
+<section id="gallery" class="sec">
+  <div class="wrap">
+    <p class="overline" data-rv>05 // ГАЛЕРЕЯ</p>
+    <h2 class="h2" data-rv>КАДРЫ <em>ДЕЖУРСТВА</em></h2>
+    <div class="ggrid">
+      <figure class="gfig hc clip" data-rv><i></i><i></i><i></i><i></i>
+        <img src="https://image.qwenlm.ai/public_source/e2a3e154-caea-43ac-a9a6-62f6bbc394c7/1c5647d6d-278a-4f92-9a3d-93a05358131f.png" alt="Су-57 на форсаже в сумерках" loading="lazy">
+        <figcaption>КАДР 01 · ФОРСАЖНЫЙ РЕЖИМ · СУ-57</figcaption>
+      </figure>
+      <figure class="gfig hc clip" data-rv><i></i><i></i><i></i><i></i>
+        <img src="https://image.qwenlm.ai/public_source/e2a3e154-caea-43ac-a9a6-62f6bbc394c7/13dfc582d-57bb-4e92-8f1c-4b0c3af249c2.png" alt="Ночная стоянка, подготовка машин" loading="lazy">
+        <figcaption>КАДР 02 · НОЧНАЯ СТОЯНКА · ТЕХНИКИ</figcaption>
+      </figure>
+      <figure class="gfig hc clip" data-rv><i></i><i></i><i></i><i></i>
+        <img src="https://image.qwenlm.ai/public_source/e2a3e154-caea-43ac-a9a6-62f6bbc394c7/15a578a58-12e8-4604-ba16-1fea8f35b0f8.png" alt="Патруль над облаками на закате" loading="lazy">
+        <figcaption>КАДР 03 · ПАТРУЛЬ ВЫШЕ ОБЛАКОВ</figcaption>
+      </figure>
+      <figure class="gfig hc clip" data-rv><i></i><i></i><i></i><i></i>
+        <img src="https://image.qwenlm.ai/public_source/e2a3e154-caea-43ac-a9a6-62f6bbc394c7/19d59e485-7747-4e07-8aa0-769791181714.png" alt="Ночной взлёт с форсажем" loading="lazy">
+        <figcaption>КАДР 04 · ВЗЛЁТ С ПОЛНЫМ ФОРСАЖЕМ</figcaption>
+      </figure>
+    </div>
+  </div>
+</section>
+</main>
+
+<footer>
+  <div class="wrap">
+    <div class="ghost">ОКБ СУХОГО</div>
+    <div class="fgrid3">
+      <div>
+        <div style="display:flex;align-items:center;gap:12px;margin-bottom:12px">
+          <span style="display:inline-flex;background:#fff;padding:5px 9px;border-radius:4px"><img src="public/logo-sukhoi.svg" alt="ОКБ Сухого" class="logo-foot"></span>
+          <span class="disp" style="font-size:14px;letter-spacing:.22em">ОКБ СУХОГО</span>
+        </div>
+        <p>Неофициальный фан-сайт. Не аффилирован с АО «Компания „Сухой"» и ОАК. 3D-модель Су-57 — Sketchfab (встроенный вьювер). Характеристики — по открытым источникам.</p>
+      </div>
+      <div class="col">
+        <div class="head">// НАВИГАЦИЯ</div>
+        <a href="#history">ИСТОРИЯ</a><a href="#fleet">САМОЛЁТЫ</a><a href="#weapons">ВООРУЖЕНИЕ</a><a href="#gallery">ГАЛЕРЕЯ</a>
+      </div>
+      <div class="col">
+        <div class="head">// ТЕХНИКА</div>
+        <div>3D: Sketchfab Viewer API · scroll-orbit</div>
+        <div style="margin-bottom:8px">PNG: runtime alpha-matting</div>
+        <div style="color:rgba(255,122,26,.8)">© <span id="yr">2026</span> · ФАН-ПРОЕКТ</div>
+      </div>
+    </div>
+  </div>
+</footer>
+
+<script src="https://static.sketchfab.com/api/latest/sketchfab.js"></script>
+<script>
+(function(){
+'use strict';
+var RM=window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+var fmt=function(n){return Math.round(n).toLocaleString('ru-RU');};
+
+var PLANES={
+ su27:'https://image.qwenlm.ai/public_source/e2a3e154-caea-43ac-a9a6-62f6bbc394c7/1a027ab02-9a29-4823-90b1-dd2318d9e205.png',
+ su30:'https://image.qwenlm.ai/public_source/e2a3e154-caea-43ac-a9a6-62f6bbc394c7/1c54c072c-7e51-47b3-935b-70a17fe30ffa.png',
+ su34:'https://image.qwenlm.ai/public_source/e2a3e154-caea-43ac-a9a6-62f6bbc394c7/17cbef53a-76cb-468d-8016-46df03081dd8.png',
+ su35:'https://image.qwenlm.ai/public_source/e2a3e154-caea-43ac-a9a6-62f6bbc394c7/12a8eb010-75a2-42b2-be42-9d916b9bb759.png',
+ su57:'https://image.qwenlm.ai/public_source/e2a3e154-caea-43ac-a9a6-62f6bbc394c7/128563a5a-3507-41e2-b86e-e73f5f8e96cc.png',
+ su75:'https://image.qwenlm.ai/public_source/e2a3e154-caea-43ac-a9a6-62f6bbc394c7/14e9a5510-7055-4984-801f-8ac11077cdbb.png'
+};
+var FLEET=[
+ {id:'su27',flip:true,name:'СУ-27',gen:'4 ПОКОЛЕНИЕ',role:'Фронтовой истребитель, родоначальник семейства',desc:'Интегральная компоновка, выдающаяся манёвренность, база для десятков модификаций.',stats:[['СКОРОСТЬ',2500,'КМ/Ч'],['ПОТОЛОК',20000,'М'],['ДАЛЬНОСТЬ',3600,'КМ']]},
+ {id:'su30',flip:true,name:'СУ-30СМ',gen:'4+ ПОКОЛЕНИЕ',role:'Многоцелевой двухместный истребитель',desc:'Завоевание превосходства и ударные задачи: два кресла, УВТ, широчайшая номенклатура подвески.',stats:[['СКОРОСТЬ',2125,'КМ/Ч'],['ПОТОЛОК',17300,'М'],['ДАЛЬНОСТЬ',3000,'КМ']]},
+ {id:'su34',flip:true,name:'СУ-34',gen:'4+ ПОКОЛЕНИЕ',role:'Фронтовой бомбардировщик',desc:'Броневая кабина, экипаж «плечом к плечу», нагрузка 8 000 кг на 12 узлах подвески.',stats:[['НАГРУЗКА',8000,'КГ'],['УЗЛОВ',12,''],['СКОРОСТЬ',1900,'КМ/Ч']]},
+ {id:'su35',flip:false,name:'СУ-35С',gen:'4++ ПОКОЛЕНИЕ',role:'Сверхманёвренный истребитель',desc:'2 500 км/ч, потолок 20 000 м; до 12 × Р-77-1 плюс Р-73 и Р-37М — вершина линии «Фланкеров».',stats:[['СКОРОСТЬ',2500,'КМ/Ч'],['ПОТОЛОК',20000,'М'],['РАКЕТ',12,'']]},
+ {id:'su57',flip:true,name:'СУ-57',gen:'5 ПОКОЛЕНИЕ',role:'Многоцелевой истребитель ПАК ФА',desc:'2 600 км/ч, потолок 20 000 м, дальность до 5 500 км; внутренние отсеки вооружения, низкая ЭПР.',stats:[['СКОРОСТЬ',2600,'КМ/Ч'],['ПОТОЛОК',20000,'М'],['ДАЛЬНОСТЬ',5500,'КМ']]},
+ {id:'su75',flip:true,name:'СУ-75 CHECKMATE',gen:'5 ПОКОЛЕНИЕ · ЛЁГКИЙ',role:'Лёгкий тактический истребитель',desc:'Однодвигательный «шах и мат»: малозаметность, модульная авионика, ниша лёгкого 5-поколенца.',stats:[['СКОРОСТЬ',2000,'КМ/Ч'],['ДАЛЬНОСТЬ',3000,'КМ'],['НАГРУЗКА',7400,'КГ']]}
+];
+var ICONS={
+ aa:'<svg viewBox="0 0 72 28" width="56" height="22" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M66 14 54 8 20 8 14 14 20 20 54 20Z"/><path d="M20 8 12 2v6M20 20 12 26v-6M14 14H5"/><circle cx="59" cy="14" r="2.2"/></svg>',
+ ag:'<svg viewBox="0 0 72 28" width="56" height="22" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M66 14 54 9 18 9 12 14 18 19 54 19Z"/><path d="M36 9 28 1M36 19 28 27M18 9l-6-5v5M18 19l-6 5v-5M12 14H4"/></svg>',
+ cr:'<svg viewBox="0 0 72 28" width="56" height="22" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M66 14q-2-5-12-5H20l-8 5 8 5h34q10 0 12-5Z"/><path d="M34 9 26 2l-8 7M34 19l-8 7-8-7M12 14H4"/></svg>',
+ bomb:'<svg viewBox="0 0 40 48" width="36" height="42" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M20 44c-7-5-9-12-9-19h18c0 7-2 14-9 19Z"/><path d="M14 25v-9M26 25v-9M10 16h20M20 16v-6"/></svg>',
+ gun:'<svg viewBox="0 0 72 28" width="56" height="22" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M4 11h40M4 17h40"/><rect x="44" y="7" width="16" height="14"/><path d="M60 11h8M60 17h8M64 14h4"/></svg>'
+};
+var WEAPONS={
+ aa:{scale:300,unit:'КМ',items:[
+  {icon:'aa',n:'Р-73 / РВВ-МД',t:'Малая дальность · ТГС',d:'Высокоманёвренная ракета ближнего боя с тепловизорной ГСН — оружие собачьей схватки.',r:40,st:[['ДАЛЬНОСТЬ',40,'КМ'],['СКОРОСТЬ',2.5,'М'],['БЧ',8,'КГ']]},
+  {icon:'aa',n:'Р-77-1 / РВВ-СД',t:'Средняя дальность · АРГСН',d:'«Выстрелил-забыл»: активная радиолокационная ГСН, дальность до 110 км.',r:110,st:[['ДАЛЬНОСТЬ',110,'КМ'],['СКОРОСТЬ',4,'М'],['БЧ',22,'КГ']]},
+  {icon:'aa',n:'Р-77М',t:'Новая АРГСН · Су-57/Су-35С',d:'Модернизированная ракета с АРГСН увеличенной дальности для машин 5-го и 4++ поколений.',r:200,st:[['ДАЛЬНОСТЬ',200,'КМ'],['ГСН','АРГСН',''],['НОСИТЕЛЬ','СУ-57','']]},
+  {icon:'aa',n:'Р-37М / РВВ-БД',t:'Большая дальность · до 6М',d:'«Охотник» за ДРЛО и заправщиками: до 300 км, скорость до 6М.',r:300,st:[['ДАЛЬНОСТЬ',300,'КМ'],['СКОРОСТЬ',6,'М'],['БЧ',61,'КГ']]}
+ ]},
+ ag:{scale:290,unit:'КМ',items:[
+  {icon:'ag',n:'Х-31ПД',t:'Противорадиолокационная',d:'«Охотник за ПВО»: самонаведение на излучение РЛС противника, повышенная дальность.',r:180,st:[['ДАЛЬНОСТЬ',180,'КМ'],['СКОРОСТЬ',3.5,'М'],['ЦЕЛЬ','РЛС','']]},
+  {icon:'ag',n:'Х-38',t:'Высокоточная · до 40 км',d:'Модульное семейство: лазерное, спутниковое или тепловизионное наведение по выбору.',r:40,st:[['ДАЛЬНОСТЬ',40,'КМ'],['БЧ',250,'КГ'],['НАВЕДЕНИЕ','ИНС+','']]},
+  {icon:'cr',n:'Х-59МК2',t:'Малозаметная · до 290 км',d:'Крылатая ракета пониженной заметности с корреляционной ГСН по образу цели.',r:290,st:[['ДАЛЬНОСТЬ',290,'КМ'],['БЧ',320,'КГ'],['ЭПР','НИЗК.','']]},
+  {icon:'cr',n:'Х-69',t:'Для внутренних отсеков',d:'Компактная крылатая ракета скрытого применения — штатный боеприпас отсеков Су-57.',r:290,st:[['ДАЛЬНОСТЬ',290,'КМ'],['ОТСЕК','ВНУТР.',''],['НАВЕДЕНИЕ','ИНС','']]}
+ ]},
+ bomb:{scale:70,unit:'КМ',items:[
+  {icon:'bomb',n:'КАБ-500',t:'Корректируемая · 500 кг',d:'Спутниковая коррекция, КВО единицы метров: «умная» пятисотка для точечных ударов.',r:50,st:[['МАССА',500,'КГ'],['КВО',8,'М'],['ГЛИССАДА',50,'КМ']]},
+  {icon:'bomb',n:'КАБ-1500',t:'Корректируемая · 1500 кг',d:'Тяжёлый аргумент по укреплённым целям: лазерные и спутниковые варианты наведения.',r:60,st:[['МАССА',1500,'КГ'],['КВО',10,'М'],['ГЛИССАДА',60,'КМ']]}
+ ]},
+ gun:{scale:2000,unit:'ВЫСТР/МИН',items:[
+  {icon:'gun',n:'ГШ-30-1',t:'30-мм автоматическая пушка',d:'Штатная пушка Су-27/30/35/57: 150 снарядов, темп ~1500 выстр/мин.',r:1500,st:[['КАЛИБР',30,'ММ'],['СНАРЯДОВ',150,''],['ТЕМП',1500,'В/М']]}
+ ]}
+};
+
+/* лоадер */
+(function(){
+ var bar=document.getElementById('ld-bar'),pct=document.getElementById('ld-pct'),ld=0;
+ var t=setInterval(function(){
+  ld=Math.min(100,ld+7+Math.random()*14);
+  if(bar)bar.style.width=ld+'%';
+  if(pct)pct.textContent=Math.round(ld)+'%';
+  if(ld>=100){clearInterval(t);setTimeout(function(){
+   var l=document.getElementById('loader');if(l)l.classList.add('done');
+   document.body.classList.add('ready');document.body.classList.remove('booting');
+  },250);}
+ },70);
+})();
+
+/* runtime alpha-matting PNG */
+function matteGroup(src,imgs){
+ var im=new Image();im.crossOrigin='anonymous';
+ var show=function(){imgs.forEach(function(g){g.classList.add('matted');});};
+ im.onload=function(){
+  try{
+   var w=im.naturalWidth,h=im.naturalHeight,N=w*h;
+   var cv=document.createElement('canvas');cv.width=w;cv.height=h;
+   var cx=cv.getContext('2d',{willReadFrequently:true});cx.drawImage(im,0,0);
+   var id=cx.getImageData(0,0,w,h),d=id.data;
+   var removed=new Uint8Array(N),q=new Int32Array(N),qt=0,qh=0,x,y;
+   function isBG(i){var o=i*4,r=d[o],g=d[o+1],b=d[o+2];return r>200&&g>200&&b>200&&(Math.max(r,g,b)-Math.min(r,g,b))<16;}
+   function push(i){removed[i]=1;q[qt++]=i;}
+   for(x=0;x<w;x++){if(isBG(x))push(x);var iB=(h-1)*w+x;if(isBG(iB))push(iB);}
+   for(y=0;y<h;y++){var iL=y*w;if(isBG(iL))push(iL);var iR=iL+w-1;if(isBG(iR))push(iR);}
+   while(qh<qt){var i=q[qh++],px=i%w,py=(i-px)/w,j;
+    if(px>0){j=i-1;if(!removed[j]&&isBG(j))push(j);}
+    if(px<w-1){j=i+1;if(!removed[j]&&isBG(j))push(j);}
+    if(py>0){j=i-w;if(!removed[j]&&isBG(j))push(j);}
+    if(py<h-1){j=i+w;if(!removed[j]&&isBG(j))push(j);}
+   }
+   var lab=new Int32Array(N),cur=0,best=1,bestSz=0,st=new Int32Array(N);
+   for(var s=0;s<N;s++){
+    if(removed[s]||lab[s])continue;
+    cur++;var sz=0,sh=0,stt=1;st[0]=s;lab[s]=cur;
+    while(sh<stt){
+     var k=st[sh++];sz++;var kx=k%w,ky=(k-kx)/w,m;
+     if(kx>0){m=k-1;if(!removed[m]&&!lab[m]){lab[m]=cur;st[stt++]=m;}}
+     if(kx<w-1){m=k+1;if(!removed[m]&&!lab[m]){lab[m]=cur;st[stt++]=m;}}
+     if(ky>0){m=k-w;if(!removed[m]&&!lab[m]){lab[m]=cur;st[stt++]=m;}}
+     if(ky<h-1){m=k+w;if(!removed[m]&&!lab[m]){lab[m]=cur;st[stt++]=m;}}
+    }
+    if(sz>bestSz){bestSz=sz;best=cur;}
+   }
+   for(var p=0;p<N;p++){if(removed[p]||lab[p]!==best)d[p*4+3]=0;}
+   cx.putImageData(id,0,0);
+   var url=cv.toDataURL('image/png');
+   imgs.forEach(function(g){g.src=url;g.classList.add('matted');});
+  }catch(e){show();}
+ };
+ im.onerror=show;
+ im.src=src;
+}
+(function(){
+ var groups={};
+ document.querySelectorAll('img[data-matte]').forEach(function(g){
+  var src=g.getAttribute('src');(groups[src]=groups[src]||[]).push(g);
+ });
+ Object.keys(groups).forEach(function(src){matteGroup(src,groups[src]);});
+ setTimeout(function(){document.querySelectorAll('img[data-matte]').forEach(function(g){g.classList.add('matted');});},5000);
+})();
+
+/* reveal + счётчики */
+var io=null;
+var rvEls=document.querySelectorAll('[data-rv]');
+if('IntersectionObserver' in window&&!RM){
+ io=new IntersectionObserver(function(es){es.forEach(function(e){if(e.isIntersecting){e.target.classList.add('rv-in');io.unobserve(e.target);}});},{threshold:.18});
+ rvEls.forEach(function(el){io.observe(el);});
+}else{rvEls.forEach(function(el){el.classList.add('rv-in');});}
+function runCounter(el){
+ var target=parseFloat(el.getAttribute('data-cnt')),pre=el.getAttribute('data-pre')||'';
+ if(isNaN(target))return;
+ if(RM){el.textContent=pre+fmt(target);return;}
+ var t0=performance.now(),dur=1400;
+ function step(t){var k=Math.min(1,(t-t0)/dur),e=1-Math.pow(1-k,3);
+  el.textContent=pre+fmt(target*e);if(k<1)requestAnimationFrame(step);}
+ requestAnimationFrame(step);
+}
+var cio=null;
+if('IntersectionObserver' in window){
+ cio=new IntersectionObserver(function(es){es.forEach(function(e){if(e.isIntersecting){runCounter(e.target);cio.unobserve(e.target);}});},{threshold:.5});
+ document.querySelectorAll('[data-cnt]').forEach(function(el){cio.observe(el);});
+}else{document.querySelectorAll('[data-cnt]').forEach(runCounter);}
+
+/* карточки флота */
+var fleetGrid=document.getElementById('fleet-grid');
+FLEET.forEach(function(p){
+ var el=document.createElement('article');
+ el.className='fcard hc clip';
+ el.setAttribute('data-rv','');
+ el.innerHTML=
+  '<i></i><i></i><i></i><i></i>'+
+  '<div class="top"><h3>'+p.name+'</h3><span class="gen">'+p.gen+'</span></div>'+
+  '<div class="imgbox"><div class="glow"></div>'+
+   '<img data-matte src="'+PLANES[p.id]+'" alt="'+p.name+' — вырезанный PNG, прозрачный фон" loading="lazy"'+(p.flip?' style="transform:scaleX(-1)"':'')+'>'+
+  '</div>'+
+  '<div class="role">'+p.role.toUpperCase()+'</div>'+
+  '<p class="desc">'+p.desc+'</p>'+
+  '<div class="stats">'+
+   p.stats.map(function(s){return '<div><div class="v"><span data-cnt="'+s[1]+'">0</span></div><div class="l">'+s[0]+' '+s[2]+'</div></div>';}).join('')+
+  '</div>';
+ fleetGrid.appendChild(el);
+ if(io){io.observe(el);}else{el.classList.add('rv-in');}
+ el.querySelectorAll('[data-cnt]').forEach(function(c){if(cio){cio.observe(c);}else{runCounter(c);}});
+ if(!RM&&window.matchMedia('(pointer:fine)').matches){
+  el.addEventListener('pointermove',function(ev){
+   var r=el.getBoundingClientRect();
+   var rx=((ev.clientY-r.top)/r.height-.5)*-7,ry=((ev.clientX-r.left)/r.width-.5)*9;
+   el.style.transform='perspective(900px) rotateX('+rx.toFixed(2)+'deg) rotateY('+ry.toFixed(2)+'deg) translateY(-4px)';
+  });
+  el.addEventListener('pointerleave',function(){el.style.transform='';});
+ }
+});
+
+/* вооружение */
+var wpGrid=document.getElementById('wp-grid');
+function renderWeapons(key){
+ var cfg=WEAPONS[key];
+ wpGrid.innerHTML='';
+ cfg.items.forEach(function(w,i){
+  var el=document.createElement('article');
+  el.className='wcard hc clip card-in';
+  el.style.animationDelay=(i*70)+'ms';
+  var pct=Math.min(100,Math.round(w.r/cfg.scale*100));
+  el.innerHTML=
+   '<i></i><i></i><i></i><i></i>'+
+   '<div class="head"><div class="ic">'+ICONS[w.icon]+'</div><div><h3>'+w.n+'</h3><div class="sub">'+w.t.toUpperCase()+'</div></div></div>'+
+   '<p class="desc">'+w.d+'</p>'+
+   '<div class="stats">'+
+    w.st.map(function(s){var num=parseFloat(s[1]);var isN=!isNaN(num);
+     return '<div><div class="v">'+(isN?'<span data-wcnt="'+num+'">0</span>':s[1])+'</div><div class="l">'+s[0]+(s[2]?' '+s[2]:'')+'</div></div>';}).join('')+
+   '</div>'+
+   '<div class="wbar-row">'+
+    '<span class="mono" style="font-size:9px;color:rgba(255,255,255,.4);white-space:nowrap">ШКАЛА ДАЛЬНОСТИ</span>'+
+    '<div class="wbar'+(key==='gun'?' flame':'')+'"><i data-w="'+pct+'"></i></div>'+
+    '<span class="mono" style="font-size:10px;color:var(--ice);white-space:nowrap">≈ '+fmt(w.r)+' '+cfg.unit+'</span>'+
+   '</div>';
+  wpGrid.appendChild(el);
+ });
+ requestAnimationFrame(function(){requestAnimationFrame(function(){
+  wpGrid.querySelectorAll('.wbar i').forEach(function(b){b.style.width=b.getAttribute('data-w')+'%';});
+  wpGrid.querySelectorAll('[data-wcnt]').forEach(function(c){
+   var t=parseFloat(c.getAttribute('data-wcnt'));
+   if(RM){c.textContent=fmt(t);return;}
+   var t0=performance.now();
+   function st(tp){var k=Math.min(1,(tp-t0)/1100),e=1-Math.pow(1-k,3);c.textContent=fmt(t*e);if(k<1)requestAnimationFrame(st);}
+   requestAnimationFrame(st);
+  });
+ });});
+}
+document.querySelectorAll('.wp-tab').forEach(function(b){
+ b.addEventListener('click',function(){
+  document.querySelectorAll('.wp-tab').forEach(function(x){x.setAttribute('aria-selected','false');});
+  b.setAttribute('aria-selected','true');
+  renderWeapons(b.getAttribute('data-tab'));
+ });
+});
+renderWeapons('aa');
+
+/* flyby + outro «РОЖДЁННЫЕ В НЕБЕ» */
+(function(){
+ var sec=document.getElementById('flyby');
+ var cA=document.getElementById('craftA'),cB=document.getElementById('craftB'),cC=document.getElementById('craftC');
+ var stars=document.getElementById('fb-stars');
+ var spd=document.getElementById('fb-spd'),alt=document.getElementById('fb-alt'),bank=document.getElementById('fb-bank'),prog=document.getElementById('fb-prog');
+ var outro=document.getElementById('fb-outro'),outroOn=false;
+ if(!sec||!cA)return;
+ function pad(n,l){n=String(n);while(n.length<l)n='0'+n;return n;}
+ function outroCounters(){
+  if(!outro)return;
+  outro.querySelectorAll('[data-ocnt]').forEach(function(c){
+   var t=parseFloat(c.getAttribute('data-ocnt'));
+   if(RM){c.textContent=fmt(t);return;}
+   var t0=performance.now();
+   function st(tp){var k=Math.min(1,(tp-t0)/1300),e=1-Math.pow(1-k,3);c.textContent=fmt(t*e);if(k<1)requestAnimationFrame(st);}
+   requestAnimationFrame(st);
+  });
+ }
+ function apply(p){
+  cA.style.transform='translateX('+(-45+p*225)+'vw) rotate('+(p*4).toFixed(2)+'deg)';
+  cB.style.transform='translateX('+(-30+p*195)+'vw) rotate('+(-p*3).toFixed(2)+'deg)';
+  cC.style.transform='translateX('+(-70+p*285)+'vw) rotate('+(p*6).toFixed(2)+'deg)';
+  if(stars)stars.style.transform='translateX('+(-p*14)+'vw)';
+  if(spd)spd.textContent=pad(Math.round(900+p*1700),4);
+  if(alt)alt.textContent=pad(Math.round(200+p*19800),5);
+  if(bank)bank.textContent=(3+p*3).toFixed(1)+'°';
+  if(prog)prog.style.width=(p*100)+'%';
+  if(outro){
+   if(p>0.8&&!outroOn){outroOn=true;outro.classList.add('show');outroCounters();}
+   else if(p<=0.72&&outroOn){outroOn=false;outro.classList.remove('show');}
+  }
+ }
+ if(RM){apply(.5);return;}
+ var tick=false;
+ function upd(){
+  tick=false;
+  var r=sec.getBoundingClientRect();
+  var total=sec.offsetHeight-window.innerHeight;
+  var p=Math.min(1,Math.max(0,-r.top/Math.max(1,total)));
+  apply(p);
+ }
+ window.addEventListener('scroll',function(){if(!tick){tick=true;requestAnimationFrame(upd);}},{passive:true});
+ window.addEventListener('resize',upd);
+ upd();
+})();
+
+/* HERO 3D: один вьювер Sketchfab; дедуп нод; full-bleed + pan камеры вправо */
+(function(){
+ var hero=document.getElementById('hero'),stage=document.getElementById('stage');
+ var inBtn=document.getElementById('inBtn'),ihint=document.getElementById('ihint');
+ var SF='222d91aa75e74be8ac2f24a834371144';
+ var api=null,tgt=null,dist=10,th0=0,phi=0.2,autoA=0,dragA=0,free=false;
+ var heroMode='none',heroVis=true,running=false,camReady=false;
+ window.__okbHero=function(){return heroMode;};
+ function heroP(){var r=hero.getBoundingClientRect();return Math.min(1,Math.max(0,-r.top/Math.max(1,r.height)));}
+ function setCam(p,t){try{api.setCamera(p,t,dist,0);}catch(e1){try{api.lookat(p,t,dist);}catch(e2){}}}
+ function dedup(){
+  try{
+   if(!api.getNodeMap)return;
+   api.getNodeMap(function(map){
+    try{
+     var names=Object.keys(map||{});
+     console.info('[ОКБ] ноды 3D-сцены:',names.join(' | '));
+     var hidden=[];
+     var nameRe=/copy|dup|clone|mirror|instance|duplicate|_1$|_2$|_001|_002|002|\.001|\.002|second|\s2$| 2$/i;
+     names.forEach(function(nm){
+      if(nameRe.test(nm)){
+       try{api.hide(map[nm]);hidden.push(nm);}
+       catch(eH){try{api.hide([map[nm]]);hidden.push(nm);}catch(eH2){}}
+      }
+     });
+     if(api.getBoundingBox){
+      var ids=names.map(function(nm){return map[nm];});
+      var boxes={},left=ids.length,done=0,ok=true;
+      ids.forEach(function(id){
+       try{
+        api.getBoundingBox(id,function(a,b){
+         try{var bb=b||a;if(bb&&bb.min)boxes[id]=bb;}catch(e){}
+         if(++done>=left)coincide();
+        });
+       }catch(e){ok=false;if(++done>=left)coincide();}
+      });
+      function coincide(){
+       if(!ok&&!Object.keys(boxes).length)return;
+       var ks=Object.keys(boxes),seen={};
+       for(var i=0;i<ks.length;i++){
+        if(seen[ks[i]])continue;
+        for(var j=i+1;j<ks.length;j++){
+         if(seen[ks[j]])continue;
+         if(sameBox(boxes[ks[i]],boxes[ks[j]])){
+          try{api.hide(ks[j]);if(hidden.indexOf(ks[j])<0)hidden.push(ks[j]);seen[ks[j]]=1;}catch(e){}
+         }
+        }
+       }
+       if(hidden.length)console.info('[ОКБ] скрыты дубли (имя/bbox):',hidden.join(', '));
+      }
+      function sameBox(a,b){
+       if(!a||!b||!a.min||!b.min||!a.max||!b.max)return false;
+       var t=0.5;
+       return Math.abs(a.min[0]-b.min[0])<t&&Math.abs(a.min[1]-b.min[1])<t&&Math.abs(a.min[2]-b.min[2])<t
+           &&Math.abs(a.max[0]-b.max[0])<t&&Math.abs(a.max[1]-b.max[1])<t&&Math.abs(a.max[2]-b.max[2])<t;
+      }
+     }else if(hidden.length){console.info('[ОКБ] скрыты дубли:',hidden.join(', '));}
+    }catch(e){}
+   });
+  }catch(e){}
+ }
+ function fallback(){
+  heroMode='iframe';
+  stage.innerHTML='<div id="shield"></div><iframe title="Су-57 3D" src="https://sketchfab.com/models/'+SF+'/embed?autostart=1&preload=1&transparent=1&autospin=0.4&camera=0&ui_theme=dark&ui_infos=0&ui_controls=0&ui_watermark=0&ui_watermark_link=0&ui_help=0&ui_settings=0&ui_fullscreen=0&ui_annotations=0&dnt=1" allow="autoplay; fullscreen" allowfullscreen style="width:100%;height:100%;border:0"></iframe>';
+  if(ihint)ihint.textContent='прокрутка страницы свободна · осмотр — по кнопке';
+ }
+ function loop(){
+  if(!heroVis){running=false;return;}
+  if(heroMode==='api'&&!free&&camReady){
+   if(!RM)autoA+=0.0018;
+   var a=th0+autoA+heroP()*2.6+dragA,cp=Math.cos(phi);
+   var pos=[tgt[0]+dist*cp*Math.cos(a),tgt[1]+dist*Math.sin(phi),tgt[2]+dist*cp*Math.sin(a)];
+   if(window.innerWidth>860){
+    var fx=tgt[0]-pos[0],fy=tgt[1]-pos[1],fz=tgt[2]-pos[2];
+    var fl=Math.sqrt(fx*fx+fy*fy+fz*fz)||1;fx/=fl;fy/=fl;fz/=fl;
+    var rx=-fz,rz=fx,rl=Math.sqrt(rx*rx+rz*rz)||1;rx/=rl;rz/=rl;
+    var k=-dist*0.20;
+    var p2=[pos[0]+rx*k,pos[1],pos[2]+rz*k];
+    var t2=[tgt[0]+rx*k,tgt[1],tgt[2]+rz*k];
+    setCam(p2,t2);
+   }else{setCam(pos,tgt);}
+  }
+  requestAnimationFrame(loop);
+ }
+ function runLoop(){if(running)return;running=true;requestAnimationFrame(loop);}
+ if('IntersectionObserver' in window){
+  new IntersectionObserver(function(en){
+   heroVis=en[0].isIntersecting;
+   if(heroVis)runLoop();
+   if(!heroVis&&free)setFree(false);
+  },{threshold:.15}).observe(hero);
+ }
+ function startHero(){
+  if(window.Sketchfab){
+   try{
+    api=window.Sketchfab(stage);
+    api.init(SF,{autostart:1,preload:1,transparent:1,autospin:0,camera:0,ui_theme:'dark',
+     ui_infos:0,ui_controls:0,ui_watermark:0,ui_watermark_link:0,ui_help:0,ui_settings:0,
+     ui_fullscreen:0,ui_annotations:0,ui_ar:0,ui_vr:0,ui_sound:0,dnt:1,
+     success:function(){api.start();},
+     error:function(){fallback();}});
+    api.addEventListener('viewerready',function(){
+     try{api.setUserInteraction(false);}catch(e){}
+     dedup();
+     try{api.getUserCamera(function(c){
+      tgt=c.target;dist=c.distance*1.18;
+      var dx=c.position[0]-tgt[0],dy=c.position[1]-tgt[1],dz=c.position[2]-tgt[2];
+      th0=Math.atan2(dz,dx);
+      phi=Math.max(0.12,Math.asin(Math.max(-1,Math.min(1,dy/Math.max(.001,dist)))));
+      camReady=true;heroMode='api';runLoop();
+     });}catch(e){heroMode='api';runLoop();}
+    });
+   }catch(e){fallback();}
+  }else{fallback();}
+ }
+ stage.addEventListener('pointerdown',function(e){
+  if(heroMode!=='api'||free)return;
+  var x0=e.clientX;
+  function mv(ev){dragA+=(ev.clientX-x0)*0.005;x0=ev.clientX;}
+  function up(){window.removeEventListener('pointermove',mv);window.removeEventListener('pointerup',up);}
+  window.addEventListener('pointermove',mv);
+  window.addEventListener('pointerup',up);
+ });
+ function setFree(v){
+  free=v;
+  if(heroMode==='api'){try{api.setUserInteraction(v);}catch(e){}}
+  if(heroMode==='iframe'){var s=document.getElementById('shield');if(s)s.style.display=v?'none':'block';}
+  if(inBtn)inBtn.textContent=v?'✕ ЗАВЕРШИТЬ ОСМОТР':'▶ СВОБОДНЫЙ ОСМОТР';
+  if(ihint)ihint.textContent=v?'drag — вращение · колесо — зум · ESC — выход':'прокрутка страницы вращает модель · drag — доворот';
+ }
+ if(inBtn)inBtn.addEventListener('click',function(){setFree(!free);});
+ window.addEventListener('keydown',function(e){if(e.key==='Escape'&&free)setFree(false);});
+ startHero();
+})();
+
+/* hero live telemetry — «живой» HUD */
+(function(){
+ if(RM)return;
+ var alt=document.getElementById('hAlt'),spd=document.getElementById('hSpd'),mach=document.getElementById('hMach');
+ if(!alt)return;
+ setInterval(function(){
+  try{
+   var a=20000+Math.round((Math.random()-.5)*260);
+   var s=2600+Math.round((Math.random()-.5)*46);
+   var m=(2.45+(Math.random()-.5)*0.04).toFixed(2);
+   alt.textContent=a.toLocaleString('ru-RU');
+   spd.textContent=s.toLocaleString('ru-RU');
+   mach.textContent=m;
+  }catch(e){}
+ },1900);
+})();
+
+/* self-test в консоль */
+window.addEventListener('load',function(){
+ setTimeout(function(){
+  var mm=document.querySelectorAll('img.matted').length,mt=document.querySelectorAll('img[data-matte]').length;
+  var rep={
+   heroStage:!!document.getElementById('stage'),
+   hero3DMode:(window.__okbHero?window.__okbHero():'n/a'),
+   flybyOutro:!!document.getElementById('fb-outro'),
+   fleetCards:document.getElementById('fleet-grid')?document.getElementById('fleet-grid').children.length:0,
+   weaponCards:document.getElementById('wp-grid')?document.getElementById('wp-grid').children.length:0,
+   matting:mm+'/'+mt,
+   reducedMotion:RM
+  };
+  console.info('[ОКБ self-test]',JSON.stringify(rep));
+ },3000);
+});
+
+var yr=document.getElementById('yr');if(yr)yr.textContent=new Date().getFullYear();
+})();
+</script>
+</body>
+</html>

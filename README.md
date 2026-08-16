@@ -1,36 +1,57 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# ОКБ СУХОГО
 
-## Getting Started
+Одностраничный лендинг конструкторского бюро Сухого — в стиле «авиационный HUD / инженерный чертёж»: тёмная тема, тонкие сеточные линии, кинематографичные анимации самолётов, счётчики и scroll-сцены.
 
-First, run the development server:
+> ⚠️ Неофициальный фан-проект. Не аффилирован с АО «Компания „Сухой"» и Объединённой авиастроительной корпорацией (ОАК).
+
+## Стек
+
+- **Next.js 16** (App Router) + **TypeScript**
+- **Tailwind CSS v4** — вся дизайн-система (токены, keyframes) в `app/globals.css`
+- **Framer Motion** — scroll-привязка (`useScroll` / `useTransform`), появление секций
+- **lucide-react** — иконки
+- **next/font** + Google Fonts — Russo One (заголовки), Manrope (текст), JetBrains Mono (ТТХ/цифры)
+- **Sketchfab Viewer API** — интерактивная 3D-модель Су-57 в hero
+
+## Особенности
+
+- **Runtime alpha-matting** (`lib/matting.ts`): PNG-самолёты с белым фоном грузятся
+  с CDN (`image.qwenlm.ai`), а белый фон срезается на клиенте flood-fill-заливкой
+  от краёв — самолёты рендерятся прозрачными поверх тёмного интерфейса.
+- Прелоадер с радаром, бесконечная MARQUEE-лента, таймлайн истории, карточки
+  семейства «Су», полноэкранная scroll-сцена пролёта, секции вооружения и галереи.
+- Полное уважение к `prefers-reduced-motion`: бесконечные анимации отключаются.
+
+## Запуск
 
 ```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+npm install      # установить зависимости
+npm run dev      # дев-сервер → http://localhost:3000
+npm run build    # production-сборка
+npm start        # запуск production-сборки
+npm run lint     # ESLint
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+## Структура
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+```
+app/
+  layout.tsx     метаданные, шрифты, <body>
+  page.tsx       композиция всех секций
+  globals.css    design-system, токены, keyframes
+components/      секции: Preloader, Navbar, Hero, Marquee, History,
+                 Fleet, FlightScene, Weapons, Gallery, Footer (+ Reveal)
+data/
+  content.ts     весь контент: самолёты, таймлайн, вооружение, галерея, URL картинок
+lib/
+  matting.ts     runtime alpha-matting PNG (срезка белого фона)
+  sketchfab.ts   интеграция 3D-вьювера Су-57 (scroll-orbit, free-look)
+  hooks.ts       useScramble, useCountUp, useReveal, useMediaQuery и др.
+legacy/          оригинальная vanilla-версия (index.html, server.js) — для истории
+```
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+## Секции (сверху вниз)
 
-## Learn More
-
-To learn more about Next.js, take a look at the following resources:
-
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+Прелоадер → Навбар → **Hero** (3D Су-57 + телеметрия) → MARQUEE →
+**История** (таймлайн по скроллу) → **Самолёты** (карточки семейства «Су») →
+**Пролёт** (scroll-сцена) → **Вооружение** → **Галерея** → Footer.
